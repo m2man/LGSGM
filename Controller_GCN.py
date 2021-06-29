@@ -19,21 +19,13 @@ import torchvision.transforms as transforms
 device = torch.device('cuda:0')
 non_blocking = True
 # device = torch.cuda.set_device(0)
-
-ROOT_DIR = '/home/nmduy/Graphs/GraSim'
-#ROOT_DIR = '/home/hong01/Research/GraSim'
-# DATA_DIR = f'{ROOT_DIR}/Essential_Data'
-
-# VG_SGG_DICTS = f'{ROOT_DIR}/Essential_Data/VG-SGG-dicts-with-attri.json' # ENCODED DICTIONARY FROM VISUAL GENOME DATASET (PROVIDED IN THE ORIGINAL REPO OF KAIHUATANG)
-# with open(VG_SGG_DICTS) as f:
-#     info_dict = json.load(f)
     
-DATA_DIR = '/home/nmduy/Graphs/GraSim/OriginalData'
+DATA_DIR = './Data'
 
 #word2idx_cap = joblib.load(f"../NewData/flickr30k_caps_word2idx.joblib") # This dictionary include the above
-word2idx_cap = joblib.load(f"../OriginalData/flickr30k_lowered_caps_word2idx_train_val.joblib")
-word2idx_img_obj = joblib.load(f"../OriginalData/flickr30k_lowered_img_obj_word2idx.joblib") 
-word2idx_img_pred = joblib.load(f"../OriginalData/flickr30k_lowered_img_pred_word2idx.joblib") 
+word2idx_cap = joblib.load(f"{DATA_DIR}/flickr30k_lowered_caps_word2idx_train_val.joblib")
+word2idx_img_obj = joblib.load(f"{DATA_DIR}/flickr30k_lowered_img_obj_word2idx.joblib") 
+word2idx_img_pred = joblib.load(f"{DATA_DIR}/flickr30k_lowered_img_pred_word2idx.joblib") 
 
 
 TOTAL_CAP_WORDS = len(word2idx_cap)
@@ -613,12 +605,6 @@ class Evaluator():
         self.visual_ft_dim = info_dict['visual_ft_dim']
         self.ge_dim = info_dict['graph_emb_dim']
         self.include_pred_ft = info_dict['include_pred_ft']
-        self.datatrain = PairGraphPrecomputeDataset(image_sgg=images_data_train, caption_sgg=caps_data_train, 
-                                                    word2idx_cap=word2idx_cap, word2idx_img_obj=word2idx_img_obj, 
-                                                    word2idx_img_pred=word2idx_img_pred, effnet=self.visual_backbone,
-                                                     image_caption_matching=img_cap_matching_idx_train, 
-                                                     caption_image_matching=cap_img_matching_idx_train,
-                                                     numb_sample=self.numb_sample)
         
         ## DECLARE MODEL
         self.image_branch_model = md.ImageModel(word_unit_dim=self.unit_dim, gcn_output_dim=self.gcn_output_dim, 

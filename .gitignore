@@ -1,3 +1,5 @@
 __pycache__/
+Debug.ipynb
 *.pyc
-*.ipynb
+Data/flickr30k_train*
+.ipynb_checkpoints/

@@ -15,9 +15,9 @@ import json
 from functools import partial
 from PIL import Image
 
-IMAGE_DIR = '/home/nmduy/flickr30k_images/flickr30k_images'
-OBJ_FT_DIR = '/home/nmduy/Graphs/GraSim/OriginalData/VisualObjectFeatures'
-PRED_FT_DIR = '/home/nmduy/Graphs/GraSim/OriginalData/VisualPredFeatures'
+IMAGE_DIR = 'path/to/flickr30k_images'
+OBJ_FT_DIR = './VisualObjectFeatures' # run extract_visual_features.py to get this
+PRED_FT_DIR = './VisualPredFeatures' # run extract_visual_features.py to get this
 
 def indexing_sent(sent, word2idx, add_start_end=True):
     words = word_tokenize(sent)
