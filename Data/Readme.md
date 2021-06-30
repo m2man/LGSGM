@@ -14,4 +14,4 @@ The ```word2idx.joblib``` files are the number encoded of each word in the vocab
 
 The ```init_glove.joblib``` files are the embeded vectors for words in the vocabulary which is initialised by Glove model. These files are used for initialising the word embedding modules in our network.
 
-Put the **Visual Features** folder here. Visual Features Folders can be obtained by running ```extract_visual_features.py```. Or you can download here: Link. This includes the Efficientnet-b5 features extracted for each detected objects and their unions (predicates) in images.
+Put the **Visual Features** folder here. Visual Features Folders can be obtained by running ```extract_visual_features.py```. Or you can download [here](https://drive.google.com/drive/folders/1IvlmTZ9wUpOVIr9MzPgWZB5aYTaTD0jn?usp=sharing). This includes the Efficientnet-b5 features extracted for each detected objects and their unions (predicates) in images.
