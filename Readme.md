@@ -10,7 +10,7 @@ Please install packages in the ```requirements.txt```. The project is implemente
 ## 2. Data prepare
 Our data (Flickr30k) is original given by the SGM [paper](https://arxiv.org/abs/1910.05134). We only performed same basic cleaning process to remove duplicated data and lowering text. The preprocessed data can be found in the Data folder.
 
-The model also need the visual features which are the embedded vector of objects in images. In this research, we used EfficientNet-b5 to extract the features. You can extract by running ```extract_visual_features.py``` script. We also uploaded our prepared features ([here](https://drive.google.com/drive/folders/1IvlmTZ9wUpOVIr9MzPgWZB5aYTaTD0jn?usp=sharing). You can download it and place in the **Data folder**.
+The model also need the visual features which are the embedded vector of objects in images. In this research, we used EfficientNet-b5 to extract the features. You can extract by running ```extract_visual_features.py``` script. We also uploaded our prepared features ([here](https://drive.google.com/drive/folders/1IvlmTZ9wUpOVIr9MzPgWZB5aYTaTD0jn?usp=sharing)). You can download it and place in the **Data folder**.
 
 ## 3. Training and Evaluating
 You can run the ```main_train.py``` script to perform either training or evaluating the model. Our pretrained model can be found [here](https://drive.google.com/drive/folders/100t_GxbhycwfQO82cz-7Xfkn8_t69_Vz?usp=sharing). Please download it and place in **Report folder**.
