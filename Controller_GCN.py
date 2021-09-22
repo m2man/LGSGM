@@ -789,7 +789,7 @@ class Evaluator():
         return cap_sent_emb, cap_rels_emb, cap_len_sent_all, cap_numb_rels_all, caption_geb_all
     
     # ---------- VALIDATE ---------
-    def validate_retrieval(self, image_sgg, caption_sgg, include_geb=False):
+    def validate_retrieval(self, image_sgg, caption_sgg, include_geb=False, cross_attn='t2i'):
         print('---------- VALIDATE RETRIEVAL ----------')
         
         img_obj_emb, img_pred_emb, img_numb_o_all, img_numb_p_all, img_geb_all = self.encode_image_sgg(image_sgg, batch_size=16)
@@ -803,5 +803,23 @@ class Evaluator():
         with torch.no_grad():
             score, ar, ari = evalrank(img_obj_emb, img_numb_o_all, cap_sent_emb, cap_len_sent_all, 
                              img_pred_emb, img_numb_p_all, cap_rels_emb, cap_numb_rels_all,
-                             cross_attn='t2i', predicate_score_rate=1, img_geb=img_geb_all, cap_geb=cap_geb_all)
+                             cross_attn=cross_attn, predicate_score_rate=1, img_geb=img_geb_all, cap_geb=cap_geb_all)
         return score, ar, ari
+    
+    # ---------- VALIDATE RESULT ---------
+    def validate_retrieval_result(self, image_sgg, caption_sgg, include_geb=False, cross_attn='t2i'):
+        print('---------- VALIDATE RETRIEVAL RESULT ----------')
+        
+        img_obj_emb, img_pred_emb, img_numb_o_all, img_numb_p_all, img_geb_all = self.encode_image_sgg(image_sgg, batch_size=16)
+        cap_sent_emb, cap_rels_emb, cap_len_sent_all, cap_numb_rels_all, cap_geb_all = self.encode_caption_sgg(caption_sgg, batch_size=64)
+        
+        if not include_geb:
+            img_geb_all = None
+            cap_geb_all = None
+        print('Scoring ...')    
+        # Perform retrieval
+        with torch.no_grad():
+            score, ar, ari, result = evalrank_result(img_obj_emb, img_numb_o_all, cap_sent_emb, cap_len_sent_all, 
+                             img_pred_emb, img_numb_p_all, cap_rels_emb, cap_numb_rels_all,
+                             cross_attn=cross_attn, predicate_score_rate=1, img_geb=img_geb_all, cap_geb=cap_geb_all)
+        return score, ar, ari, result

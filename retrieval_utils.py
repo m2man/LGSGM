@@ -95,6 +95,40 @@ def evalrank(img_embs, obj_nums, cap_embs, cap_lens, pred_embs, pred_nums, cap_r
     print("Average t2i Recall: %.4f" % ari)
     print("Text to image: %.4f %.4f %.4f %.4f %.4f" % ri)
     return rsum, r, ri
+
+def evalrank_result(img_embs, obj_nums, cap_embs, cap_lens, pred_embs, pred_nums, cap_rel_embs, cap_rel_nums, 
+             cross_attn='i2t', predicate_score_rate=1, img_geb=None, cap_geb=None, disc_score=None):
+    print('Contrastive Score ...')
+    if cross_attn == 't2i':
+        sims1 = shard_xattn_t2i(img_embs, obj_nums, cap_embs, cap_lens, shard_size=128)
+        sims2 = shard_xattn_t2i(pred_embs, pred_nums, cap_rel_embs, cap_rel_nums, shard_size=128)
+        sims = sims1 + predicate_score_rate * sims2
+    elif cross_attn == 'i2t':
+        sims1 = shard_xattn_i2t(img_embs, obj_nums, cap_embs, cap_lens, shard_size=128)
+        sims2 = shard_xattn_i2t(pred_embs, pred_nums, cap_rel_embs, cap_rel_nums, shard_size=128)
+        sims = sims1 + predicate_score_rate * sims2
+    
+    print('GraphEmb Score ...')
+    if img_geb is not None and cap_geb is not None:
+        cos_sims = shard_cosinesimilarity(img_geb, cap_geb, shard_size=256)
+        sims = sims + cos_sims
+    if disc_score is not None:
+        sims = sims + disc_score
+        
+    r, rt, i2t_results = i2t(img_embs, cap_embs, cap_lens, sims, return_ranks=True)
+    ri, rti, t2i_results = t2i(img_embs, cap_embs, cap_lens, sims, return_ranks=True)
+    ar = (r[0] + r[1] + r[2]) / 3
+    ari = (ri[0] + ri[1] + ri[2]) / 3
+    rsum = r[0] + r[1] + r[2] + ri[0] + ri[1] + ri[2]
+    print("rsum: %.4f" % rsum)
+    print("Average i2t Recall: %.4f" % ar)
+    print("Image to text: %.4f %.4f %.4f %.4f %.4f" % r)
+    print("Average t2i Recall: %.4f" % ari)
+    print("Text to image: %.4f %.4f %.4f %.4f %.4f" % ri)
+    result = {}
+    result['i2t'] = i2t_results
+    result['t2i'] = t2i_results
+    return rsum, r, ri, result
     
 # find caption
 def i2t(images, captions, caplens, sims, npts=None, return_ranks=False):
