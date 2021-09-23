@@ -7,6 +7,8 @@ Our code is mostly based on the SGM original code.
 ## Update
 For those who are interested in MSCOCO Data, I have uploaded the preprocess data and also the original scene graph extracted from images and their captions. You can find them [here](https://drive.google.com/drive/folders/1Q1Msy6kV0pzZ7uxrDjDQW34Ta9CucI4i?usp=sharing). The original data is given by the authors of the SGM model.
 
+The presentation slide in the SOMET2021 is [here](https://docs.google.com/presentation/d/1zR-XtnmdxbDeee5_2MCPG4TyIsojyZEwelqUSLpzVck/edit?usp=sharing).
+
 ## 1. Requirements
 Please install packages in the ```requirements.txt```. The project is implemented with python 3.7.9
 
