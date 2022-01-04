@@ -22,3 +22,13 @@ You can run the ```main_train.py``` script to perform either training or evaluat
 
 ## 4. Contact
 For any issue or comment, you can directly email me at manh.nguyen5@mail.dcu.ie
+
+For citation, you can add the bibtex as following:
+```
+@article{nguyen2021deep,
+  title={A Deep Local and Global Scene-Graph Matching for Image-Text Retrieval},
+  author={Nguyen, Manh-Duy and Nguyen, Binh T and Gurrin, Cathal},
+  journal={arXiv preprint arXiv:2106.02400},
+  year={2021}
+}
+```
