@@ -83,5 +83,5 @@ def run_evaluate(info_dict):
     info_txt = info_txt + f"\n[t2i] {round(ari_val[0], 4)} {round(ari_val[1], 4)} {round(ari_val[2], 4)}"
     print(info_txt)
     
-#run_train(info_dict)
+run_train(info_dict)
 run_evaluate(info_dict)

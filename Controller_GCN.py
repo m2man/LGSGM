@@ -221,7 +221,7 @@ class Trainer():
         
         ## LOSS FUNCTION ##
         loss_matrix = ContrastiveLoss(margin=self.margin_matrix_loss, predicate_score_rate=1, 
-                                      max_violation=True, cross_attn='i2t')
+                                      max_violation=True, cross_attn='t2i')
         loss_geb = ContrastiveLoss_CosineSimilarity(margin=self.margin_matrix_loss, max_violation=True)
         loss_matrix = loss_matrix.to(device)
         loss_geb = loss_geb.to(device)
@@ -575,7 +575,7 @@ class Trainer():
         with torch.no_grad():
             score, ar, ari = evalrank(img_obj_emb, img_numb_o_all, cap_sent_emb, cap_len_sent_all, 
                              img_pred_emb, img_numb_p_all, cap_rels_emb, cap_numb_rels_all,
-                             cross_attn='i2t', predicate_score_rate=1, img_geb=img_geb_all, cap_geb=cap_geb_all)
+                             cross_attn='t2i', predicate_score_rate=1, img_geb=img_geb_all, cap_geb=cap_geb_all)
         return score, ar, ari
 
 # ----- EVALUATOR -----
